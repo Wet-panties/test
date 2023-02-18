@@ -8,7 +8,7 @@ def sum(a: int,
     return c
 
 
-x = sum(5, 'aoaoao')
+x = sum(8, 'alala')
 print(x)
 
 
