@@ -2,24 +2,40 @@
 #
 #  Вложенные переменные не влияют на глобальную, пока не применишь из функции global
 
-
-variable = 'Global'
-def test():
-    #global variable
-    variable = 'local'
-    print(variable)
+def sum(a: int,
+        b: int) -> int:
+    c = a * b
+    return c
 
 
-    def test_two():
-        #global variable
-        variable = 'Local two'
-        print(variable)
-    test_two()
+x = sum(5, 'aoaoao')
+print(x)
 
 
-test()
-
-print(variable)
+# variable = 'Global'
+# def test(a, b, c, d, e):
+#     """
+#     :param a: int
+#     :param b: float
+#     :param c: dict
+#     :param d: list
+#     :param e: frozenset
+#     """
+#     #global variable
+#     variable = 'local'
+#     print(variable)
+#
+#
+#     def test_two():
+#         #global variable
+#         variable = 'Local two'
+#         print(variable)
+#     test_two()
+#
+#
+# test()
+#
+# print(variable)
 
 
 

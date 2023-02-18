@@ -1,7 +1,7 @@
-from func import SumSQ
+# from func import SumSQ
 d = {'FName': 'Borka', 'LName': 'Ivanov', 'Age': 69}
-z = SumSQ(d['Age'], (d['Age'] - 1), d['FName'], 1)
-print(f'Hellow {name}, твою мать ебали {z} раз')
+# z = SumSQ(d['Age'], (d['Age'] - 1), d['FName'], 1)
+# print(f'Hellow {name}, твою мать ебали {z} раз')
 
 '''for di in d:
     print(di + ' - ' + str(d[di]))
