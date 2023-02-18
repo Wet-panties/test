@@ -8,9 +8,12 @@ def summa(a: int = 5,
     return c
 
 
-x = summa()
-print(x)
-
+# позволяет импортировать функцию из этого файла не запуская следующий фрагмент кода
+if __name__ == '__main__':
+    x = summa()
+    print(x)
+else:
+    print('Саня хуй соси')
 
 # variable = 'Global'
 # def test(a, b, c, d, e):
@@ -36,13 +39,6 @@ print(x)
 # test()
 #
 # print(variable)
-
-
-
-
-
-
-
 
 
 '''def SumSQ(a, b, c=2):
