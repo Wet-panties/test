@@ -2,13 +2,13 @@
 #
 #  Вложенные переменные не влияют на глобальную, пока не применишь из функции global
 
-def sum(a: int,
-        b: int) -> int:
+def summa(a: int = 5,
+          b: int = 10) -> int:
     c = a * b
     return c
 
 
-x = sum(8, 'alala')
+x = summa()
 print(x)
 
 
