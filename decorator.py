@@ -1,12 +1,10 @@
-def decorator(count):
+
     def dec(function):
         import time
         def wrapper(*args, **kwargs):
             print(f'Starting {function}')
             start = time.time()
-            for a in range(count):
-                result = function(*args, **kwargs)
-                print(f'Blowing {count} times - {result} #{a+1}')
+
             fin = time.time() - start + 0.003
             print(f'{function} successfully ended in {fin}')
             return result
@@ -14,7 +12,7 @@ def decorator(count):
     return dec
 
 
-@decorator(count=5)
+@decorator
 def helloeblo(name):
     helloname = f'hello {name}'
     return helloname
