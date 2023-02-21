@@ -25,7 +25,7 @@ def decorator(count):
     return dec
 
 
-@decorator(count=5)
+@decorator(count=10)
 def helloeblo(name):
     helloname = f'{name} мы тут выебали твою мать'
     return helloname
