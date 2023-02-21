@@ -1,15 +1,16 @@
-def decorator(function):
-    import time
+def decorator(count):
+    def dec(function):
+        import time
 
-    def wrapper(*args, **kwargs):
-        print(f'Starting {function}')
-        start = time.time()
-        result = function(*args, **kwargs)
-        fin = time.time() - start + 0.003
-        print(f'{function} successfully ended in {fin}')
-        return result
-
-    return wrapper
+        def wrapper(*args, **kwargs):
+            print(f'Starting {function}')
+            start = time.time()
+            result = function(*args, **kwargs)
+            fin = time.time() - start + 0.003
+            print(f'{function} successfully ended in {fin}')
+            return result
+        return wrapper
+    return dec
 
 
 @decorator
