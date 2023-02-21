@@ -7,7 +7,15 @@ def decorator(count):
             start = time.time()
             for a in range(count):
                 result = function(*args, **kwargs)
-                print(f'Blowing {count} times - {result} #{a + 1}')
+                if a + 1 == 2:
+                    raz = 'раза'
+                elif (a + 1) == 3:
+                    raz = 'раза'
+                elif (a + 1) == 4:
+                    raz = 'раза'
+                else:
+                    raz = 'раз'
+                print(f' {result} {a + 1} {raz}')
             fin = time.time() - start + 0.003
             print(f'{function} successfully ended in {fin}')
             return result
@@ -19,12 +27,12 @@ def decorator(count):
 
 @decorator(count=5)
 def helloeblo(name):
-    helloname = f'hello {name}'
+    helloname = f'{name} мы тут выебали твою мать'
     return helloname
 
 
-test = helloeblo('EBLO')
-print(test)
+urname = input('Тварина, как тебя зовут?:  ')
+print(helloeblo(urname))
 
 '''def hellodeco():
     def helloeblo():
