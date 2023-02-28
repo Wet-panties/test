@@ -6,7 +6,7 @@ def decorator(count):
             print(f'Starting {function}')
             start = time.time()
             for a in range(count):
-                result = function(*args, **kwargs)
+                result: object = function(*args, **kwargs)
                 if a + 1 == 2:
                     raz = 'раза'
                 elif (a + 1) == 3:
@@ -25,7 +25,7 @@ def decorator(count):
     return dec
 
 
-@decorator(count=10)
+@decorator(count=9)
 def helloeblo(name):
     helloname = f'{name} мы тут выебали твою мать'
     return helloname
@@ -33,6 +33,7 @@ def helloeblo(name):
 
 urname = input('Тварина, как тебя зовут?:  ')
 print(helloeblo(urname))
+
 
 '''def hellodeco():
     def helloeblo():
