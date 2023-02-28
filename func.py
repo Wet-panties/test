@@ -4,6 +4,7 @@
 
 def summa(a: int = 5,
           b: int = 10) -> int:
+    '''выводит твою мамашу в окно'''
     c = a * b
     return c
 

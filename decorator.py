@@ -1,12 +1,14 @@
 def decorator(count):
+    '''декоратор'''
     def dec(function):
         import time
 
-        def wrapper(*args, **kwargs):
+        def wrapper(*args, **kwargs): #передаём аргументы из helloeblo
+            '''обёртка'''
             print(f'Starting {function}')
             start = time.time()
             for a in range(count):
-                result: object = function(*args, **kwargs)
+                result: object = function(*args, **kwargs) #присваиваем резалту
                 if a + 1 == 2:
                     raz = 'раза'
                 elif (a + 1) == 3:
@@ -25,10 +27,12 @@ def decorator(count):
     return dec
 
 
-@decorator(count=9)
+# обращаемся к декоратору
+@decorator(count=1)
 def helloeblo(name):
+    '''Запрос имени для обёртки wrapper'''
     helloname = f'{name} мы тут выебали твою мать'
-    return helloname
+    return helloname # возвращаем результат во wrapper
 
 
 urname = input('Тварина, как тебя зовут?:  ')
