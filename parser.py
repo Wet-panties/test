@@ -11,6 +11,7 @@ import vk_api.utils
 import time
 
 
+
 # Получаем данные из поисковиков с задаваемой тематики
 def get_data_from_search_engines(query):
     # Получаем данные с google
