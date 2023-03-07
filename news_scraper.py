@@ -3,13 +3,14 @@ from bs4 import BeautifulSoup
 import re
 import json
 import time
+import ast
 import urllib.request
 from wordpress_xmlrpc import Client, WordPressPost
 from wordpress_xmlrpc.methods.posts import GetPosts, NewPost
 from wordpress_xmlrpc.methods.users import GetUserInfo
 
 # Задаем тематику для поиска новостей
-topic = 'News'
+topic = 'фитнес'
 print(topic, ' 1')
 # Формируем ссылку для поиска новостей
 url = 'https://www.google.com/search?q=' + topic + '&source=lnms&tbm=nws'
@@ -19,10 +20,15 @@ response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 print(response, ' 3')
 print(soup, ' 4')
-
 # Ищем в HTML-коде ссылки на новости
-news_links = soup.find_all('a', class_='lLrAF')
+news_links = soup.find_all('a', class_='\w{6}')
 print(news_links, ' 5')
+for link in soup.find_all('a'):
+    # print(link.get('href'))
+    linkse = link.get('href')
+    for im in json.loads(f'[{linkse}]'.replace('\'', '"')):
+        with open('linkse.json', 'a') as f:
+            json.dump(linkse + '', f)
 
 # Проходимся по каждой ссылке, чтобы получить HTML-код страницы с новостью
 for link in news_links:
@@ -77,4 +83,3 @@ for link in news_links:
     wp.call(NewPost(post))  # Отправляем POST-запрос, чтобы опубликовать пост
 
     time.sleep(5)  # Задержка в 5 секунд
-
