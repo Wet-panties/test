@@ -9,17 +9,20 @@ from wordpress_xmlrpc.methods.posts import GetPosts, NewPost
 from wordpress_xmlrpc.methods.users import GetUserInfo
 
 # Задаем тематику для поиска новостей
-topic = 'программирование'
-
+topic = 'News'
+print(topic, ' 1')
 # Формируем ссылку для поиска новостей
 url = 'https://www.google.com/search?q=' + topic + '&source=lnms&tbm=nws'
-
+print(url, ' 2')
 # Отправляем GET-запрос и получаем HTML-код страницы
 response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
+print(response, ' 3')
+print(soup, ' 4')
 
 # Ищем в HTML-коде ссылки на новости
 news_links = soup.find_all('a', class_='lLrAF')
+print(news_links, ' 5')
 
 # Проходимся по каждой ссылке, чтобы получить HTML-код страницы с новостью
 for link in news_links:
@@ -29,23 +32,18 @@ for link in news_links:
 
     # Ищем title, description, keywords, content
     title = news_soup.find('title').text  # Title
-
     description = ''  # Description
-
     meta_description = news_soup.find('meta', attrs={'name': 'description'})
-
     if meta_description:
         description = meta_description['content']
 
     keywords = ''  # Keywords
-
     meta_keywords = news_soup.find('meta', attrs={'name': 'keywords'})
 
     if meta_keywords:
         keywords = meta_keywords['content']
 
     content = ''  # Content
-
     article_body = news_soup.find('div', class_='article-body')
 
     if article_body:
@@ -60,10 +58,9 @@ for link in news_links:
     }
 
     # Сохраняем данные о новости в файл
-    with open('news.json', 'a') as f:
+    with open('news.json', 'w') as f:
         json.dump(news_data, f)
-        open('news.json')
-
+        print(f)
     # Публикуем новость на сайте с движком WordPress
     wp = Client('http://example.com/xmlrpc.php', 'username', 'password')  # Авторизуемся на сайте с движком WordPress
 
