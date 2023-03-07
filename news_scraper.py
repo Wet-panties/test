@@ -26,9 +26,8 @@ print(news_links, ' 5')
 for link in soup.find_all('a'):
     # print(link.get('href'))
     linkse = link.get('href')
-    for im in json.loads(f'[{linkse}]'.replace('\'', '"')):
-        with open('linkse.json', 'a') as f:
-            json.dump(linkse + '', f)
+    with open('linkse.json', 'a') as f:
+        json.dump(linkse + '', f)
 
 # Проходимся по каждой ссылке, чтобы получить HTML-код страницы с новостью
 for link in news_links:
