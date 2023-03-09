@@ -9,25 +9,52 @@ from wordpress_xmlrpc import Client, WordPressPost
 from wordpress_xmlrpc.methods.posts import GetPosts, NewPost
 from wordpress_xmlrpc.methods.users import GetUserInfo
 
-# Задаем тематику для поиска новостей
-topic = 'фитнес'
-print(topic, ' 1')
-# Формируем ссылку для поиска новостей
-url = 'https://www.google.com/search?q=' + topic + '&source=lnms&tbm=nws'
-print(url, ' 2')
-# Отправляем GET-запрос и получаем HTML-код страницы
-response = requests.get(url)
-soup = BeautifulSoup(response.text, 'html.parser')
-print(response, ' 3')
-print(soup, ' 4')
-# Ищем в HTML-коде ссылки на новости
-news_links = soup.find_all('a', class_='\w{6}')
-print(news_links, ' 5')
-for link in soup.find_all('a'):
-    # print(link.get('href'))
-    linkse = link.get('href')
-    with open('linkse.json', 'a') as f:
-        json.dump(linkse + '', f)
+news_links = 'str'
+
+
+def link_pars():
+    """
+    Функция парсит ссылки и записывает их в файл result.txt
+    """
+    # Задаем тематику для поиска новостей
+    global news_links
+    topic = 'фитнес'
+    # Формируем ссылку для поиска новостей
+    url = 'https://www.google.com/search?q=' + topic + '&source=lnt&tbs=lr:lang_1ru&lr=lang_ru'
+    # Отправляем GET-запрос и получаем HTML-код страницы
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    # Ищем в HTML-коде ссылки на новости
+    news_links = soup.find_all('a', {'class': re.compile(r'\w{6}')})
+    # print(news_links, ' 5')
+    print(soup.find_all('a'))
+    with open('results.txt', 'w+') as f:
+
+        for linkd in soup.find_all('a'):
+            linkse = linkd.get('href')
+            if linkse.startswith('/url?q='):
+                f.write(linkse + '\n')
+        f.close()
+    return
+
+
+link_pars()
+print(news_links)
+
+with open('results.txt', 'r') as linkse:
+    # читаем все строки и удаляем переводы строк
+    urls = linkse.readlines()
+    urls = [line.rstrip('\n') for line in urls]
+    print(urls)
+    linkse.close()
+    # for i in linkse:
+    #     linkse = re.match()
+    #
+    # if linkse == '/sea'
+    #     with open('linkse.txt', 'w') as z:
+    #         z.write(linkse + '\n')
+    # with open('linkse.json', 'a') as f:
+    #     json.dump(linkse + '\n', f)
 
 # Проходимся по каждой ссылке, чтобы получить HTML-код страницы с новостью
 for link in news_links:
