@@ -25,6 +25,7 @@ def link_pars():
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
     # Ищем в HTML-коде ссылки на новости
+    # регулярные выражения описаны тут https://stackoverflow.com/questions/24748445/beautiful-soup-using-regex-to-find-tags
     news_links = soup.find_all('a', {'class': re.compile(r'\w{6}')})
     # print(news_links, ' 5')
     print(soup.find_all('a'))
