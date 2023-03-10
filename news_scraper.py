@@ -10,7 +10,8 @@ from wordpress_xmlrpc.methods.posts import GetPosts, NewPost
 from wordpress_xmlrpc.methods.users import GetUserInfo
 
 news_links = 'str'
-
+topic = 'mra'
+linkd = '123'
 
 def link_pars():
     """
@@ -18,15 +19,21 @@ def link_pars():
     """
     # Задаем тематику для поиска новостей
     global news_links
+    global topic
+    global linkd
     topic = 'фитнес'
     # Формируем ссылку для поиска новостей
     url = 'https://www.google.com/search?q=' + topic + '&source=lnt&tbs=lr:lang_1ru&lr=lang_ru'
     # Отправляем GET-запрос и получаем HTML-код страницы
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
+    # a = re.compile(r'\w{6}')
+    # print(soup)
+    # re.compile(pattern=r'\w{6}')
     # Ищем в HTML-коде ссылки на новости
     # регулярные выражения описаны тут https://stackoverflow.com/questions/24748445/beautiful-soup-using-regex-to-find-tags
     news_links = soup.find_all('a', {'class': re.compile(r'\w{6}')})
+    print(news_links)
     # print(news_links, ' 5')
     print(soup.find_all('a'))
     with open('results.txt', 'w+') as f:
@@ -34,7 +41,7 @@ def link_pars():
         for linkd in soup.find_all('a'):
             linkse = linkd.get('href')
             if linkse.startswith('/url?q='):
-                f.write(linkse + '\n')
+                f.write(linkse[7:] + '\n')
         f.close()
     return
 
@@ -42,20 +49,20 @@ def link_pars():
 link_pars()
 print(news_links)
 
-with open('results.txt', 'r') as linkse:
-    # читаем все строки и удаляем переводы строк
-    urls = linkse.readlines()
-    urls = [line.rstrip('\n') for line in urls]
-    print(urls)
-    linkse.close()
-    # for i in linkse:
-    #     linkse = re.match()
-    #
-    # if linkse == '/sea'
-    #     with open('linkse.txt', 'w') as z:
-    #         z.write(linkse + '\n')
-    # with open('linkse.json', 'a') as f:
-    #     json.dump(linkse + '\n', f)
+# with open('results.txt', 'r') as linkse:
+#     # читаем все строки и удаляем переводы строк
+#     urls = linkse.readlines()
+#     urls = [line.rstrip('\n') for line in urls]
+#     print(urls)
+#     linkse.close()
+#     # for i in linkse:
+#     #     linkse = re.match()
+#     #
+#     # if linkse == '/sea'
+#     #     with open('linkse.txt', 'w') as z:
+#     #         z.write(linkse + '\n')
+#     # with open('linkse.json', 'a') as f:
+#     #     json.dump(linkse + '\n', f)
 
 # Проходимся по каждой ссылке, чтобы получить HTML-код страницы с новостью
 for link in news_links:
