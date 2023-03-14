@@ -27,27 +27,25 @@ def link_pars():
     # Отправляем GET-запрос и получаем HTML-код страницы
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
-    # a = re.compile(r'\w{6}')
-    # print(soup)
-    # re.compile(pattern=r'\w{6}')
-    # Ищем в HTML-коде ссылки на новости
-    # регулярные выражения описаны тут https://stackoverflow.com/questions/24748445/beautiful-soup-using-regex-to-find-tags
-    news_links = soup.find_all('a', {'class': re.compile(r'\w{6}')})
-    print(news_links)
-    # print(news_links, ' 5')
-    print(soup.find_all('a'))
-    with open('results.txt', 'w+') as f:
 
-        for linkd in soup.find_all('a'):
-            linkse = linkd.get('href')
-            if linkse.startswith('/url?q='):
-                f.write(linkse[7:] + '\n')
-        f.close()
-    return
+    # a = re.compile(r'\w{6}') print(soup) re.compile(pattern=r'\w{6}')
+    # выражения описаны тут https://stackoverflow.com/questions/24748445/beautiful-soup-using-regex-to-find-tags
+
+    # Ищем в HTML-коде ссылки на новости регулярные
+    news_links = soup.find_all('a', {'class': re.compile(r'\w{6}')})
+    # тестовый записатор новостных ссылок в файл result
+    # with open('results.txt', 'w+') as f:
+    #
+    #     for linkd in soup.find_all('a'):
+    #         linkse = linkd.get('href')
+    #         if linkse.startswith('/url?q='):
+    #             f.write(linkse[7:] + '\n')
+    #     f.close()
+    # return
 
 
 link_pars()
-print(news_links)
+print(type(news_links))
 
 # with open('results.txt', 'r') as linkse:
 #     # читаем все строки и удаляем переводы строк
@@ -79,16 +77,13 @@ for link in news_links:
 
     keywords = ''  # Keywords
     meta_keywords = news_soup.find('meta', attrs={'name': 'keywords'})
-
     if meta_keywords:
         keywords = meta_keywords['content']
 
     content = ''  # Content
     article_body = news_soup.find('div', class_='article-body')
-
     if article_body:
         content = article_body.text
-
     # Формируем словарь с данными о новости
     news_data = {
         'title': title,
@@ -96,9 +91,8 @@ for link in news_links:
         'keywords': keywords,
         'content': content
     }
-
     # Сохраняем данные о новости в файл
-    with open('news.json', 'w') as f:
+    with open('news.json', 'w+') as f:
         json.dump(news_data, f)
         print(f)
     # Публикуем новость на сайте с движком WordPress
